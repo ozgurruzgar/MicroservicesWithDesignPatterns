@@ -47,7 +47,7 @@ namespace Stock.API.Consumer
 
                 StockReservedEvent stockReservedEvent = new()
                 {
-                    Payment = context.Message.PaymentMessage,
+                    PaymentMessage = context.Message.PaymentMessage,
                     BuyerId = context.Message.BuyerId,
                     OrderId = context.Message.OrderId,
                     OrderItems = context.Message.OrderItems
