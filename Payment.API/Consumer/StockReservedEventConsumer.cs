@@ -18,17 +18,17 @@ namespace Payment.API.Consumer
         {
             var balance = 3000m;
 
-            if (balance > context.Message.Payment.TotalPrice)
+            if (balance > context.Message.PaymentMessage.TotalPrice)
             {
-                _logger.LogInformation($"{context.Message.Payment.TotalPrice} TL was withdrawn from credit card for user id= {context.Message.BuyerId}");
+                _logger.LogInformation($"{context.Message.PaymentMessage.TotalPrice} TL was withdrawn from credit card for user id= {context.Message.BuyerId}");
 
-                await _publishEndpoint.Publish(new PaymentSuccessedEvent { BuyerId = context.Message.BuyerId, OrderId = context.Message.OrderId });
+                await _publishEndpoint.Publish(new PaymentCompletedEvent { BuyerId = context.Message.BuyerId, OrderId = context.Message.OrderId });
             }
             else
             {
-                _logger.LogInformation($"{context.Message.Payment.TotalPrice} TL was not withdrawn from credit card for user id= {context.Message.BuyerId}");
+                _logger.LogInformation($"{context.Message.PaymentMessage.TotalPrice} TL was not withdrawn from credit card for user id= {context.Message.BuyerId}");
 
-                await _publishEndpoint.Publish(new PaymentFailedEvent { OrderId = context.Message.OrderId, BuyerId = context.Message.BuyerId, Message = "Not enough balance." });
+                await _publishEndpoint.Publish(new PaymentFailedEvent { OrderId = context.Message.OrderId, BuyerId = context.Message.BuyerId, Message = "Not enough balance.", orderItems = context.Message.OrderItems });
             }
         }
     }
