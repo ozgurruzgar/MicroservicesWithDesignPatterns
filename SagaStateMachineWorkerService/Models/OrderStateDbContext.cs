@@ -6,7 +6,7 @@ namespace SagaStateMachineWorkerService.Models
 {
     public class OrderStateDbContext : SagaDbContext
     {
-        public OrderStateDbContext(DbContextOptions options) : base(options)
+        public OrderStateDbContext(DbContextOptions<OrderStateDbContext> options) : base(options)
         {
         }
 
