@@ -1,4 +1,4 @@
-﻿using Automatonymous;
+﻿using MassTransit;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 

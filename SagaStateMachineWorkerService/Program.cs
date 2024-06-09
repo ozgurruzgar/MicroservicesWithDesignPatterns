@@ -32,7 +32,11 @@ Microsoft.Extensions.Hosting.IHost host = Host.CreateDefaultBuilder(args)
                 });
             }));
         });
-        services.AddMassTransitHostedService();
+        services.AddOptions<MassTransitHostOptions>()
+            .Configure(options =>
+            {
+                options.WaitUntilStarted = true;
+            });
         services.AddHostedService<Worker>();
     })
     .Build();
