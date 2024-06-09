@@ -1,12 +1,18 @@
-﻿using Shared.Messages;
+﻿using Shared.Interfaces;
+using Shared.Messages;
 
 namespace Shared.Events
 {
-    public class PaymentFailedEvent
+    public class PaymentFailedEvent : IPaymentFailedEvent
     {
-        public int OrderId { get; set; }
-        public string BuyerId { get; set; }
-        public string Message { get; set; }
-        public List<OrderItemMessage> orderItems { get; set; }
+        public PaymentFailedEvent(Guid correaltionId)
+        {
+            CorrelationId = correaltionId;
+        }
+
+        public string Reason { get; set; }
+        public List<OrderItemMessage> OrderItems { get; set; }
+
+        public Guid CorrelationId { get; }
     }
 }
